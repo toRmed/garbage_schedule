@@ -7,6 +7,10 @@
 その他気になる点がございましたら、tormed008@gmail.comまでご連絡ください。  
 (至らぬ点など多いと思いますが、ご容赦ください。)  
 
-Thank you for visiting :)
-I'm a Japanese Medical Student, and learning programming by myself.
-This file(ga
+Thank you for visiting :)  
+I'm a Japanese Medical Student, and learning programming by myself.  
+This file(schedule_notice.py) was made for the sake of making LINE bot which tells you the garbage-schedule-information.  
+It might help you.  
+Please refer to the comment.  
+If you have any question, please send e-mail to tormed008@gmail.com .
+(I'm sorry for my poor English:'))
