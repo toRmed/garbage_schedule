@@ -1,3 +1,5 @@
+!pip install schedule
+
 import requests
 import calendar
 import datetime
@@ -12,7 +14,7 @@ import time
 
 def send_line(message):
     url = 'https://notify-api.line.me/api/notify'
-    access_token = '(your-token)' #LINE Notifyで取得したトークンを代入
+    access_token = '(your-token)' #input the token you got from LINE Notify
     headers = {'Authorization': 'Bearer' + ' ' + access_token}
     payload = {'message': message}
     r = requests.post(url, headers=headers, data=payload)
@@ -24,12 +26,18 @@ def get_nth_week(day):
 def get_nth_dow(year, month, day):
     return get_nth_week(day), calendar.weekday(year, month, day)
     
-#get tomorrow`s data
+#get tomorrow's data
 def tomorrow():
     today = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
     tomorrow = today + datetime.timedelta(days=1)
     tom_nth_dow = get_nth_dow(tomorrow.year, tomorrow.month, tomorrow.day)
     return tom_nth_dow
+
+#get today's data
+def today():
+    today = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
+    tod_nth_dow = get_nth_dow(today.year, today.month, today.day)
+    return tod_nth_dow
     
 #garbage-schedule(show example below)
 def garbage_schedule():
@@ -53,14 +61,25 @@ def tom_gar_info():
     else:
         text2 = date_check+'回収の日です'
     return '\n' + text1 + '\n' + text2
-    
+def tod_gar_info():
+    date_jp = ['月', '火', '水', '木', '金', '土', '日']
+    date_check = garbage_schedule().iat[today()]
+    text1 = '今日は第'+str(today()[0])+date_jp[today()[1]]+'曜日'
+    if date_check == '':
+        text2 = 'ごみの回収はありません'
+    else:
+        text2 = date_check+'回収の日です'
+    return '\n' + text1 + '\n' + text2
+
 #send the message you made
 #autorun when am6:00 & pm21:00
-def action():
+def tom_action():
     send_line(tom_gar_info())
+def tod_action():
+    send_line(tod_gar_info())
 
-schedule.every().days.at("21:00").do(action)
-schedule.every().days.at("06:00").do(action)
+schedule.every().days.at("12:00").do(tom_action) #21:00JST
+schedule.every().days.at("21:01").do(tod_action) #06:01JST
 
 #supervise the execution of task(action)
 while True:
