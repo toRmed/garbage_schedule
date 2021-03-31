@@ -16,4 +16,5 @@ If you have any question, please send e-mail to tormed008@gmail.com .
 (I'm sorry for my poor English:'))
 
 ver1.0 launched  
-→new! ver2.0 change the contents it tells you(it tells you what you have to throw today in the morning.) 
+→new! ver2.0 ・change the contents it tells you(it tells you what you have to throw today in the morning.)  
+             ・change its detail
